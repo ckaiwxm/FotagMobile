@@ -18,18 +18,93 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toolbar_ratingBar"
+                    android:layout_gravity="right|center_vertical"
+
+                    android:numStars="5"
+                    android:stepSize="1"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    android:isIndicator="false"
+                    android:progressDrawable="@drawable/ic_ratingbar_yellow"
+                    />
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="?attr/actionBarSize"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="center_vertical"
+                    android:visibility="visible"
+                    android:text="@string/app_name"
+                    android:textColor="@color/colorWhite"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+                    />
+
+            </FrameLayout>
+
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="215dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_magnify_white_48dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:backgroundTint="@color/colorFAB3" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_link_white_48dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:backgroundTint="@color/colorFAB2" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="85dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_upload_white_48dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:backgroundTint="@color/colorFAB1" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_plus_white_48dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp" />
 
 </android.support.design.widget.CoordinatorLayout>
