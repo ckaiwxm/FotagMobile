@@ -10,10 +10,6 @@ import java.util.Observable;
  */
 public class ImageModel extends Observable implements Parcelable{
 
-    private String filepath;
-    private String uri;
-    private int rating;
-
     public static final Creator<ImageModel> CREATOR = new Creator<ImageModel>() {
         @Override
         public ImageModel createFromParcel(Parcel source) {
@@ -26,33 +22,12 @@ public class ImageModel extends Observable implements Parcelable{
         }
     };
 
-    public ImageModel(String filestr) {
-        this.filepath = filestr;
-        rating = 0;
-    }
+    private String mFilePath;
+    private int mRating;
 
-    private ImageModel(Parcel source){
-        filepath = source.readString();
-        uri = source.readString();
-        rating = source.readInt();
-    }
-
-    public String getFilepath() {
-        return filepath;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-        setChanged();
-        notifyObservers("setRating");
+    public ImageModel(String filePath) {
+        this.mFilePath = filePath;
+        mRating = 0;
     }
 
     @Override
@@ -62,10 +37,26 @@ public class ImageModel extends Observable implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(filepath);
-        dest.writeString(uri);
-        dest.writeInt(rating);
+        dest.writeString(mFilePath);
+        dest.writeInt(mRating);
     }
 
+    public String getFilePath() {
+        return mFilePath;
+    }
 
+    public int getRating() {
+        return mRating;
+    }
+
+    public void setRating(int rating) {
+        this.mRating = rating;
+        setChanged();
+        notifyObservers("setRating");
+    }
+
+    private ImageModel(Parcel source){
+        mFilePath = source.readString();
+        mRating = source.readInt();
+    }
 }

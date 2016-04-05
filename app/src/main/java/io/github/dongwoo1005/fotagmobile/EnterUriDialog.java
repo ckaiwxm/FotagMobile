@@ -6,7 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -15,11 +16,7 @@ import android.widget.EditText;
  */
 public class EnterUriDialog extends DialogFragment {
 
-    public interface EnterUriDialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String uri);
-    }
-
-    EnterUriDialogListener mListener;
+    private EnterUriDialogListener mListener;
 
     public EnterUriDialog() {
 
@@ -36,7 +33,6 @@ public class EnterUriDialog extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.d("Test", "onAttach");
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
@@ -53,16 +49,18 @@ public class EnterUriDialog extends DialogFragment {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-        final EditText input = new EditText(this.getContext());
-        alertDialogBuilder.setView(input);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View promptView = inflater.inflate(R.layout.fragment_enter_uri, null);
+        final EditText input = (EditText) promptView.findViewById(R.id.text_enter_uri);
+        alertDialogBuilder.setView(promptView);
 
         String title = getArguments().getString("title");
         alertDialogBuilder.setTitle(title);
+
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // on success
-                Log.d("Test", "" + input.getText().toString());
                 mListener.onDialogPositiveClick(EnterUriDialog.this, input.getText().toString());
             }
         });
@@ -72,8 +70,13 @@ public class EnterUriDialog extends DialogFragment {
                 dialog.dismiss();
             }
         });
+
         Dialog dialog = alertDialogBuilder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return dialog;
+    }
+
+    public interface EnterUriDialogListener {
+        void onDialogPositiveClick(DialogFragment dialog, String uri);
     }
 }

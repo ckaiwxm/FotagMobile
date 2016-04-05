@@ -4,6 +4,10 @@ Fotag Mobile
 - Created at March 26, 2016
 - Email: d3son@uwaterloo.ca
 
+Preview
+-------
+![alt text](http://dongwoo1005.github.io/image/FotagMobile.png "FotagMobile")
+
 Settings
 -------------------
 - Android Studio 1.5, Android 6.0 "Marshmallow" (API Level 23)
@@ -16,7 +20,7 @@ How to use it
 -------------
 ### Toolbar:
 - Rating Filter:
-    The images with rating greater than or eqaul to the filter will be shown.
+    The images with rating greater than or equal to the filter will be shown.
     The filter can be cleared by Clear Filter
 - Delete All:
     All the images added will be deleted permanently.
@@ -35,4 +39,4 @@ How to use it
 More description
 ----------------
 - No third party library was used.
-- Would perform if I could use Android-Universal-Image-Loader
+- Would perform better if I could use Android-Universal-Image-Loader

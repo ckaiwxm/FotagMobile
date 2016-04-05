@@ -22,9 +22,8 @@ public class DetailActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     public static final String CURR_IMAGE = "curr_image";
+
     private final Handler mHideHandler = new Handler();
-    private ImageView mContentView;
-    private ImageModel mImage;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -59,6 +58,9 @@ public class DetailActivity extends AppCompatActivity {
         }
     };
 
+    private ImageView mContentView;
+    private ImageModel mImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +84,8 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        ImageDownloader imageDownloader = new ImageDownloader(mContentView, this, mImage.getFilepath());
-        imageDownloader.execute("full");
+        ImageLoader imageLoader = new ImageLoader(mContentView, this, mImage.getFilePath());
+        imageLoader.execute("full");
     }
 
     @Override

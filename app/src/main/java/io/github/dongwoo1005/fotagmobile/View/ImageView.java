@@ -20,14 +20,12 @@ public class ImageView extends RecyclerView.ViewHolder{
     public android.widget.ImageView thumbnail;
     public RatingBar thumbnailRate;
     public Button clearButton;
-
-//    private ImageCollectionModel imageCollectionModel;
-    private ArrayList<ImageModel> imageCollectionOnView;
+    private ArrayList<ImageModel> mImageCollectionOnView;
 
     public ImageView(View itemView, ArrayList<ImageModel> imageCollectionModel){
 
         super(itemView);
-        this.imageCollectionOnView = imageCollectionModel;
+        this.mImageCollectionOnView = imageCollectionModel;
         thumbnail = (android.widget.ImageView) itemView.findViewById(R.id.thumbnail);
         thumbnailRate = (RatingBar) itemView.findViewById(R.id.thumbnail_rate);
         clearButton = (Button) itemView.findViewById(R.id.clearButton);
@@ -40,7 +38,7 @@ public class ImageView extends RecyclerView.ViewHolder{
         thumbnailRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                imageCollectionOnView.get(getAdapterPosition()).setRating((int) rating);
+                mImageCollectionOnView.get(getAdapterPosition()).setRating((int) rating);
             }
         });
         clearButton.setOnClickListener(imageController);
@@ -52,13 +50,11 @@ public class ImageView extends RecyclerView.ViewHolder{
             int id = v.getId();
             switch (id){
                 case R.id.thumbnail:
-//                    Toast.makeText(v.getContext(), "Clicked Position of Thumbnail = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                     Intent transitionIntent = new Intent(v.getContext(), DetailActivity.class);
-                    transitionIntent.putExtra(DetailActivity.CURR_IMAGE, imageCollectionOnView.get(getAdapterPosition()));
+                    transitionIntent.putExtra(DetailActivity.CURR_IMAGE, mImageCollectionOnView.get(getAdapterPosition()));
                     v.getContext().startActivity(transitionIntent);
                     break;
                 case R.id.clearButton:
-//                    Toast.makeText(v.getContext(), "Clicked Position of ClearButton = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                     thumbnailRate.setRating(0F);
                     break;
             }

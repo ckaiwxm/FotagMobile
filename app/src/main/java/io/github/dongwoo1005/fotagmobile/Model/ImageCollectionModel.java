@@ -5,20 +5,11 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by Dongwoo on 23/03/2016.
  */
 public class ImageCollectionModel extends Observable implements Parcelable{
-
-//    private List<ImageModel> imageList;
-    private ArrayList<ImageModel> imageList;
-
-    public ImageCollectionModel() {
-
-        imageList = new ArrayList<>();
-    }
 
     public static final Parcelable.Creator<ImageCollectionModel> CREATOR = new Creator<ImageCollectionModel>() {
         @Override
@@ -32,80 +23,54 @@ public class ImageCollectionModel extends Observable implements Parcelable{
         }
     };
 
-    private ImageCollectionModel(Parcel in){
-        deleteAll();
-        imageList = new ArrayList<>();
-        in.readTypedList(imageList, ImageModel.CREATOR);
+    private ArrayList<ImageModel> mImageList;
+
+    public ImageCollectionModel() {
+
+        mImageList = new ArrayList<>();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(mImageList);
     }
 
     public void addToImageList(ImageModel image){
 
-        imageList.add(image);
+        mImageList.add(image);
         setChanged();
         notifyObservers("addToImageList");
     }
 
     public ArrayList<ImageModel> getImageList() {
-        return imageList;
+        return mImageList;
     }
 
-    public void setImageList(ArrayList<ImageModel> imageList) {
-        this.imageList = imageList;
+    public int deleteAll(){
+        int ret = mImageList.size();
+        mImageList.clear();
         setChanged();
-        notifyObservers("setImageList");
+        notifyObservers("deleteAll");
+        return ret;
     }
 
-    public Boolean findIfFileExists(String filestr){
-        for (ImageModel image : imageList){
-            if (image.getFilepath().equals(filestr)){
+    public Boolean findIfFileExists(String filePath){
+        for (ImageModel image : mImageList){
+            if (image.getFilePath().equals(filePath)){
                 return true;
             }
         }
         return false;
     }
 
-    public void deleteAll(){
-        imageList.clear();
-        setChanged();
-        notifyObservers("deleteAll");
+    private ImageCollectionModel(Parcel in){
+        deleteAll();
+        mImageList = new ArrayList<>();
+        in.readTypedList(mImageList, ImageModel.CREATOR);
     }
-
-    // Observer methods
-    @Override
-    public void addObserver(Observer observer) {
-        super.addObserver(observer);
-    }
-
-    @Override
-    public synchronized void deleteObservers() {
-        super.deleteObservers();
-    }
-
-    @Override
-    public void notifyObservers() {
-        super.notifyObservers();
-    }
-
-    @Override
-    protected void setChanged() {
-        super.setChanged();
-    }
-
-    @Override
-    protected void clearChanged() {
-        super.clearChanged();
-    }
-
-    @Override
-    public int describeContents() {
-
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(imageList);
-    }
-
-
 }
